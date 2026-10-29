@@ -1,0 +1,15 @@
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+.env
+kaggle.json
+
+# Dataset and model weights are stored outside ordinary Git.
+*.npz
+*.pth
+*.pt
+*.ckpt
+*.zip
+CoMusion/data/
+CoMusionGAN/data/
+
