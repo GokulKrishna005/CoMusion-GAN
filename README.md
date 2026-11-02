@@ -9,8 +9,12 @@ The Kaggle notebooks prepare Human3.6M motion data, make a fixed 135-clip traini
 - `cv-main-corrected.ipynb`: initial A0 training, up to 20 epochs per run.
 - `cv-a0-120epochs.ipynb`: continuation run, up to 120 epochs or 10 hours, whichever comes first. Attach the previous A0 notebook output as a Kaggle Input to resume.
 - `cv-a2-kinematic-120epochs.ipynb`: A2 training from random initialization, with bone, velocity and acceleration losses. Attach the previous A2 output only when resuming A2.
+- `cv-a4-full-finetune.ipynb`: full-model A4 GAN + Transformer + Diffusion fine-tune from the clean A0 epoch-500 checkpoint. It includes the kinematic losses and a history-conditioned temporal discriminator; the discriminator trains on all generated samples at diffusion steps 0–5.
+- `cv-a2-matched-finetune.ipynb`: 100-epoch no-GAN kinematic-loss fine-tune from the same clean A0 checkpoint, using the same generator optimizer and effective batch size as A4. This is the matched control for isolating the GAN effect.
 
 A0 completed 500 epochs. Its last training loss was 0.3177. On the small 15-window/8-sample progress check at epoch 500, ADE was 0.3653, FDE 0.5359, APD 8.4346 and mean relative bone stretch 0.0568. These are **not full-validation or S9/S11 test results**, and cannot establish superiority to the paper.
+
+A2 also completed 500 epochs from scratch. Its epoch-500 15-window/8-sample progress check was ADE 0.3321, FDE 0.4983, APD 5.9097 and mean relative bone stretch 0.0381. Lower APD may indicate reduced diversity. The approved plan prescribes matched 100-epoch fine-tunes from A0; therefore this 500-epoch A2 run is **not** a like-for-like no-GAN control for A4. A matched A2 fine-tune and an extra-epochs A0 control are still needed for a valid GAN-effect claim.
 
 The official pretrained CoMusion checkpoint was trained on all 150 training clips, including the 15 used here for validation. Earlier short A2/A4 pilot metrics using that checkpoint are engineering smoke tests, **not valid model-selection results**. A0 and future variants need the same clean split and fresh initialization for a defensible comparison.
 
